@@ -63,9 +63,17 @@ DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-gateway -t payme
 ```
 
 ```bash
+docker run --rm payment-gateway
+```
+
+```bash
 docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
 
 # OR for verbose details -
 
 DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
+```
+
+```bash
+docker run --rm payment-processor
 ```
