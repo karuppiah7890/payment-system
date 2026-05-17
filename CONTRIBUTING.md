@@ -73,6 +73,25 @@ docker run --rm --publish 8080:8080 payment-processor
 > [!NOTE]
 > If you want to run both the services using containers and also expose the ports of both services to the host, then you need to choose different ports on the host as in the container level - both services expose 8080 and you can't map both the 8080 ports to same 8080 port on the host
 
+> [!NOTE]
+> If you want to run both the services using containers, you can use Docker Compose. Read the below section on using Docker Compose
+
+## How to run it locally with just Containers using Docker Compose
+
+The below command will build the two images and also run them for you
+
+```bash
+docker compose up --build --detach
+```
+
+The Docker Compose file is defined in such a way that both the services are accessible to each other through the default network. And the payment-processor service is not exposed to the outside world, in this case, the host, and only the payment-gateway is exposed to the host through 8080 port and is accessible only through the loopback network interface - `localhost` or `127.0.0.1` and not all network interfaces for security reasons - so as to not expose the service to outside devices that can access the host through other network interfaces
+
+To run the containers without building the image, just run
+
+```bash
+docker compose up --detach
+```
+
 ## Debugging Docker builds
 
 To debug what's being sent as part of the build context, please use the `Dockerfile.debug` file like this -
