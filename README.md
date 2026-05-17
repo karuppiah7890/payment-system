@@ -18,6 +18,8 @@ The following decisions were taken
 
 For simplicity. If it becomes complex to handle a monorepo, we can split into separate repositories
 
+Monorepo can also help with sharing common functionalities / features in the form of libraries (modules) without having to have multiple repositories and versioning them and releasing them for every change in the modules
+
 ### Why single `go.mod` file?
 
 For simplicity. If it becomes complex to handle a single `go.mod` file to manage the dependencies for both the services, then we can use separate `go.mod` files to manage the dependencies for both the services
