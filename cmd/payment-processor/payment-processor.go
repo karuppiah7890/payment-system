@@ -12,8 +12,7 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	// Health check endpoint to check the liveness (health) of the service
-	mux.HandleFunc("GET /healthz", livenessHandler)
+	internal.AddHealthCheckEndpoint(mux)
 
 	internal.AddMetricsEndpoint(mux)
 
@@ -27,8 +26,4 @@ func main() {
 	if err != nil {
 		log.Fatalf("error occurred while trying to run server: %v", err)
 	}
-}
-
-func livenessHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(200)
 }
