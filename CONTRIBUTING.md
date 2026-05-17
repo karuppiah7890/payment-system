@@ -27,3 +27,13 @@ After building it from source, you can run the services by simply running
 ```bash
 ./payment-processor
 ```
+
+## Debugging Docker builds
+
+To debug what's being sent as part of the build context, please use the `Dockerfile.debug` file like this -
+
+```bash
+DOCKER_BUILDKIT=0 docker build -f Dockerfile.debug
+```
+
+Accordingly modify the `.dockerignore` file
