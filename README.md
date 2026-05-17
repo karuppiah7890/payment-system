@@ -13,6 +13,10 @@ The following decisions were taken
 - Include `go mod download` instruction
 - Default `helm` chart for deploying the services
 
+## What can be done next?
+
+Check [TODO.md](TODO.md)
+
 ## Why
 
 ### Why Monorepo?
