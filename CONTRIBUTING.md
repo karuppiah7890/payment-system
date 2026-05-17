@@ -70,6 +70,9 @@ Run `payment-processor` like this -
 docker run --rm --publish 8080:8080 payment-processor
 ```
 
+> [!NOTE]
+> If you want to run both the services using containers and also expose the ports of both services to the host, then you need to choose different ports on the host as in the container level - both services expose 8080 and you can't map both the 8080 ports to same 8080 port on the host
+
 ## Debugging Docker builds
 
 To debug what's being sent as part of the build context, please use the `Dockerfile.debug` file like this -
