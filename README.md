@@ -11,6 +11,7 @@ The following decisions were taken
 - `Dockerfile.debug` file
 - `COPY . .` container build instruction
 - Include `go mod download` instruction
+- Default `helm` chart for deploying the services
 
 ## Why
 
@@ -41,6 +42,10 @@ For simplicity. It's known that it's generally a bad idea to use this instructio
 Though `go build` downloads dependencies, it's better to do `go mod download` before hand separately - for example in container build instructions so that we can leverage and take advantage of the container image layer caching - which won't change if there are no changes in the dependencies
 
 But yes, also note that - `go mod download` downloads all modules defined in the `go.mod` while `go build` only downloads specific dependencies needed to compile the given package. But we use `go mod download` for efficiency and speed as part of the container build process which can leverage caching and speed up the build when there are no changes in the list of dependencies
+
+## Why default `helm` chart?
+
+For simplicity. As of now, the default helm chart comes with all the batteries included - that is, all the basic kubernetes resources are covered and taken care of - Deployment, Service, Service Account and has optional resources like Horizontal Pod Autoscaler (HPA), Ingress, HTTP Route. We can add more resources if necessary. By default the helm chart installs `nginx` but it can be used to install our payment gateway service and payment processor service too with just passing minimal appropriate values during installation. The same can be done for upgrade. So, we can easily deploy and manage our services using `helm` like this. When complexity of deployment increases - need for customization of the resources will come up, need for extra resources will come up, at that time, we can modify this chart and incorporate any necessary features. For example, some future resources could be - ServiceMonitor custom resource to configure Prometheus to monitor the services - that is, to scrape the metrics endpoint of the services. That would also assume that the ServiceMonitor CRD is already installed and the appropriate Operator like Prometheus Operator is present to read it and process it and configure Prometheus according to the ServiceMonitor configuration
 
 ## How to run it
 

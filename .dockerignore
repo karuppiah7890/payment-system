@@ -1,3 +1,6 @@
 # We don't need .git directory as of now as we don't run any `git`
 # commands or need any git related details as part of the docker build
 .git
+
+# We don't need helm chart directory
+helm-chart

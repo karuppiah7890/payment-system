@@ -140,3 +140,73 @@ And if the build is cached, use below to create a new build without cache
 ```bash
 DOCKER_BUILDKIT=0 docker build --no-cache --file Dockerfile.debug
 ```
+
+## How to run it locally with just Containers using Kubernetes
+
+We'll be using `helm` tool to deploy (install) and manage our services. Management means - get deployment information, upgrade our services, delete our services
+
+Please install `helm` by following the official Helm website https://helm.sh/docs/intro/install or from the official Helm releases - https://github.com/helm/helm/releases
+
+Once installed, also check if a tool like `minikube` or `kind` or similar is installed to run local Kubernetes clusters
+
+We'll be using `minikube` with a driver like `docker` for example
+
+```bash
+minikube start
+```
+
+And once the Kubernetes cluster is ready, ensure that the container images are available in the worker node's container runtime. For example, for `minikube`, you can access the container runtime like this -
+
+First get details to connect to the container daemon
+
+```bash
+minikube docker-env
+```
+
+For a specific minikube profile, you can do this -
+
+```bash
+minikube --profile <profile-name> docker-env
+```
+
+Then run it the commands that it gives in your shell. You can also do this -
+
+```bash
+eval $(minikube docker-env)
+```
+
+Once you do this, you can see the list of containers running in the daemon like this -
+
+```bash
+docker ps
+```
+
+Now just build the images using `docker build` or `docker compose build`. We'll use `docker compose build` to build both the images together, like this -
+
+```bash
+docker compose build
+```
+
+Once done, check if the container daemon has the images of `payment-gateway` and `payment-processor` services using this -
+
+```bash
+docker images
+```
+
+You should see `payment-gateway:latest`, `payment-processor:latest`
+
+Now you can use the helm chart to run the services
+
+```bash
+helm install payment-gateway helm-chart --set image.repository=payment-gateway --set image.tag=latest --set service.port=8080 --set livenessProbe.httpGet.path=/healthz --set readinessProbe.httpGet.path=/healthz
+
+helm install payment-processor helm-chart --set image.repository=payment-processor --set image.tag=latest --set service.port=8080 --set livenessProbe.httpGet.path=/healthz --set readinessProbe.httpGet.path=/healthz
+```
+
+To run it easily with lesser command line arguments, you can use the helm values yaml files for the two services like this -
+
+```bash
+helm install payment-gateway helm-chart --values payment-gateway-helm-values.yaml
+
+helm install payment-processor helm-chart --values payment-processor-helm-values.yaml
+```

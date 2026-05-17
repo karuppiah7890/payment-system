@@ -1,0 +1,14 @@
+image:
+  repository: payment-processor
+  tag: latest
+
+service:
+  port: 8080
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+
+readinessProbe:
+  httpGet:
+    path: /healthz
