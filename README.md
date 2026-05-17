@@ -54,6 +54,8 @@ You can build the container images for the two services using a container build 
 
 An example using `docker` CLI and Docker daemon -
 
+Build `payment-gateway` like this -
+
 ```bash
 docker build --build-arg SERVICE_NAME=payment-gateway -t payment-gateway .
 
@@ -62,9 +64,13 @@ docker build --build-arg SERVICE_NAME=payment-gateway -t payment-gateway .
 DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-gateway -t payment-gateway .
 ```
 
+Run `payment-gateway` like this -
+
 ```bash
 docker run --rm payment-gateway
 ```
+
+Build `payment-processor` like this -
 
 ```bash
 docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
@@ -73,6 +79,8 @@ docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
 
 DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
 ```
+
+Run `payment-processor` like this -
 
 ```bash
 docker run --rm payment-processor
