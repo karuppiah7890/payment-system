@@ -1,6 +1,8 @@
 # Contributing to the services
 
-## Building the services from source
+## How to run it locally without using Containers or Kubernetes
+
+### Building the services from source
 
 This repository is a mono repository. It contains two services - `payment-gateway` and `payment-processor`
 
@@ -16,7 +18,7 @@ go build -v ./cmd/payment-gateway
 go build -v ./cmd/payment-processor
 ```
 
-## Running the services
+### Running the services
 
 After building it from source, you can run the services by simply running
 
@@ -26,6 +28,46 @@ After building it from source, you can run the services by simply running
 
 ```bash
 ./payment-processor
+```
+
+## How to run it locally with just Containers
+
+There is a generic `Dockerfile`s present for both the services
+
+You can build the container images for the two services using a container build tool like `docker`. You can also choose other container build tools like `podman` etc
+
+An example using `docker` CLI and Docker daemon -
+
+Build `payment-gateway` like this -
+
+```bash
+docker build --build-arg SERVICE_NAME=payment-gateway -t payment-gateway .
+
+# OR for verbose details -
+
+DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-gateway -t payment-gateway .
+```
+
+Run `payment-gateway` like this -
+
+```bash
+docker run --rm --publish 8080:8080 payment-gateway
+```
+
+Build `payment-processor` like this -
+
+```bash
+docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
+
+# OR for verbose details -
+
+DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
+```
+
+Run `payment-processor` like this -
+
+```bash
+docker run --rm --publish 8080:8080 payment-processor
 ```
 
 ## Debugging Docker builds
