@@ -149,6 +149,8 @@ Please install `helm` by following the official Helm website https://helm.sh/doc
 
 Once installed, also check if a tool like `minikube` or `kind` or similar is installed to run local Kubernetes clusters
 
+You can install `minikube` or `kind` by following the instructions here - https://kubernetes.io/docs/tasks/tools/
+
 We'll be using `minikube` with a driver like `docker` for example
 
 ```bash
@@ -169,7 +171,7 @@ For a specific minikube profile, you can do this -
 minikube --profile <profile-name> docker-env
 ```
 
-Then run it the commands that it gives in your shell. You can also do this -
+Then run the commands that it gives in your shell. You can also do this -
 
 ```bash
 eval $(minikube docker-env)
@@ -209,4 +211,24 @@ To run it easily with lesser command line arguments, you can use the helm values
 helm install payment-gateway helm-chart --values payment-gateway-helm-values.yaml
 
 helm install payment-processor helm-chart --values payment-processor-helm-values.yaml
+```
+
+You can check the helm releases to see that they are installed and you can also follow the instructions in the post release notes to port forward the pod's container's port to the host to connect to it
+
+```bash
+helm ls
+```
+
+Next we'll be using `kubectl` to access the Kubernetes Cluster resources
+
+Install `kubectl` from https://dl.k8s.io or by following https://kubernetes.io/docs/tasks/tools/
+
+Or you can use `minikube kubectl` command to run `kubectl`
+
+```bash
+kubectl get deployments
+
+kubectl get pods
+
+kubectl get services
 ```
