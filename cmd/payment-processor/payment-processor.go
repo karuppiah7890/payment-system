@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"payment/internal"
 )
 
 func main() {
@@ -13,6 +14,8 @@ func main() {
 
 	// Health check endpoint to check the liveness (health) of the service
 	mux.HandleFunc("GET /healthz", livenessHandler)
+
+	internal.AddMetricsEndpoint(mux)
 
 	server := http.Server{
 		Addr:    "0.0.0.0:8080",
