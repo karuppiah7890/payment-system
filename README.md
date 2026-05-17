@@ -67,7 +67,7 @@ DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-gateway -t payme
 Run `payment-gateway` like this -
 
 ```bash
-docker run --rm payment-gateway
+docker run --rm --publish 8080:8080 payment-gateway
 ```
 
 Build `payment-processor` like this -
@@ -83,5 +83,5 @@ DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-processor -t pay
 Run `payment-processor` like this -
 
 ```bash
-docker run --rm payment-processor
+docker run --rm --publish 8080:8080 payment-processor
 ```
