@@ -113,6 +113,18 @@ To run the containers without building the image, just run
 docker compose up --detach
 ```
 
+If you want to just build the two images, just run
+
+```bash
+docker compose build
+```
+
+And if the build is cached, use below to create a new build without cache
+
+```bash
+docker compose build --no-cache
+```
+
 ## Debugging Docker builds
 
 To debug what's being sent as part of the build context, please use the `Dockerfile.debug` file like this -
