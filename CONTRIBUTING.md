@@ -41,12 +41,23 @@ An example using `docker` CLI and Docker daemon -
 Build `payment-gateway` like this -
 
 ```bash
-docker build --build-arg SERVICE_NAME=payment-gateway -t payment-gateway .
+docker build --build-arg SERVICE_NAME=payment-gateway --tag payment-gateway .
 
 # OR for verbose details -
 
-DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-gateway -t payment-gateway .
+DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-gateway --tag payment-gateway .
 ```
+
+And if the build is cached, use below to create a new build without cache
+
+```bash
+docker build --no-cache --build-arg SERVICE_NAME=payment-gateway --tag payment-gateway .
+
+# OR for verbose details -
+
+DOCKER_BUILDKIT=0 docker build --no-cache --build-arg SERVICE_NAME=payment-gateway --tag payment-gateway .
+```
+
 
 Run `payment-gateway` like this -
 
@@ -57,11 +68,21 @@ docker run --rm --publish 8080:8080 payment-gateway
 Build `payment-processor` like this -
 
 ```bash
-docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
+docker build --build-arg SERVICE_NAME=payment-processor --tag payment-processor .
 
 # OR for verbose details -
 
-DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-processor -t payment-processor .
+DOCKER_BUILDKIT=0 docker build --build-arg SERVICE_NAME=payment-processor --tag payment-processor .
+```
+
+And if the build is cached, use below to create a new build without cache
+
+```bash
+docker build --no-cache --build-arg SERVICE_NAME=payment-processor --tag payment-processor .
+
+# OR for verbose details -
+
+DOCKER_BUILDKIT=0 docker build --no-cache --build-arg SERVICE_NAME=payment-processor --tag payment-processor .
 ```
 
 Run `payment-processor` like this -
@@ -97,7 +118,13 @@ docker compose up --detach
 To debug what's being sent as part of the build context, please use the `Dockerfile.debug` file like this -
 
 ```bash
-DOCKER_BUILDKIT=0 docker build -f Dockerfile.debug
+DOCKER_BUILDKIT=0 docker build --file Dockerfile.debug
 ```
 
 Accordingly modify the `.dockerignore` file
+
+And if the build is cached, use below to create a new build without cache
+
+```bash
+DOCKER_BUILDKIT=0 docker build --no-cache --file Dockerfile.debug
+```
