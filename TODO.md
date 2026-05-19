@@ -1,8 +1,22 @@
 - Add `POST /pay` endpoint in both `payment-gateway` and `payment-service`
     - `payment-gateway` simply accepts a JSON payment request and forwards it to `payment-service`
 
+- Add Tests - Unit Tests, Integration Tests
+    - For Request Handling
+
+- Handle OS Signals - SIGTERM? What else? SIGKILL? SIGHUP?
+    - Shutdown the process only if all the HTTP requests are done processing!
+        - Also, ignore readiness and health check HTTP requests when checking if all requests are done processing
+
 - Run the containers as non root user
     - Make changes in the container image - in the `Dockerfile` and also ensure that the Kubernetes deployment and local Docker deployment run the containers with non root user
+
+- Add CI for building and publishing container images to a container registry
+    - For example, use GitHub Actions and GitHub Container Image Registry
+
+- Release versioned container images. Currently it's always just `latest` image tag
+
+- Add 2 separate endpoints for liveness and readiness - `livez` and `ready` and remove `healthz`
 
 - Consider adding a `Makefile` for simplifying local build and other local operations to be done for local development
 
